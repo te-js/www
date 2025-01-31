@@ -1,12 +1,14 @@
 import {
-  button,
+  a,
   DefaultComponent,
   div,
   h1,
   h2,
+  h3,
   main,
   p,
   section,
+  span,
 } from "@marcomit/core";
 import Footer from "../components/footer";
 import Header from "../components/header";
@@ -28,160 +30,125 @@ class HomePage extends DefaultComponent {
     this.#accordionOpen.value = !this.#accordionOpen.value;
   }
 
-  async build() {
+  build() {
     return main(
-      { class: "landing-page max-w-7xl mx-auto px-4 py-8" },
-      // Header with navigation
+      { class: "flex min-h-screen flex-col" },
       Header(),
-      // Intro Section
+      // Hero Section
       section(
-        { class: "text-center py-16 bg-gray-800" },
+        {
+          class:
+            "flex flex-col items-center justify-center gap-4 px-6 py-32 bg-white dark:bg-black",
+        },
+        span(
+          { class: "rounded-full bg-gray-900 px-3 py-1 text-sm text-white" },
+          "Announcing our next release"
+        ),
+        h1(
+          {
+            class:
+              "text-center text-5xl font-bold tracking-tight lg:text-7xl text-black dark:text-white",
+          },
+          "Build faster with",
+          span({ class: "text-blue-600" }, " Tee Framework")
+        ),
+        p(
+          {
+            class:
+              "max-w-[42rem] text-center text-xl text-gray-600 dark:text-gray-400",
+          },
+          "A production-ready web framework that lets you build performant and scalable applications with ease."
+        ),
         div(
-          { class: "max-w-2xl mx-auto" },
-          h1(
-            { class: "text-4xl font-extrabold text-white mb-4" },
-            "Build Fast. Scale Seamlessly."
-          ),
-          p(
-            { class: "text-gray-400 mb-6" },
-            "Tee is a modern, lightweight framework that empowers developers to create high-performance applications with ease."
-          ),
-          button(
+          { class: "flex gap-4 mt-4" },
+          a(
             {
+              href: "/docs",
               class:
-                "bg-gray-700 text-white px-6 py-3 rounded-md hover:bg-gray-600",
-              onclick: () => console.log("Get Started clicked"),
+                "rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700 transition-colors",
             },
             "Get Started"
+          ),
+          a(
+            {
+              href: "https://github.com/yourusername/tee-framework",
+              class:
+                "rounded-lg bg-gray-100 px-6 py-3 font-semibold text-gray-900 hover:bg-gray-200 transition-colors dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700",
+            },
+            "GitHub"
           )
         )
       ),
       // Features Section
       section(
-        { class: "py-16 bg-gray-900 text-gray-300" },
-        h2(
-          { class: "text-2xl font-bold text-center mb-8 text-white" },
-          "Features"
-        ),
+        { class: "bg-gray-50 dark:bg-gray-900 py-24 px-6" },
         div(
-          { class: "flex flex-wrap justify-center gap-8" },
+          { class: "mx-auto max-w-7xl" },
           div(
-            { class: "bg-gray-800 p-6 rounded-md text-center w-72" },
+            { class: "text-center mb-16" },
             h2(
-              { class: "text-xl font-semibold text-white mb-2" },
-              "⚡ Lightweight"
+              {
+                class:
+                  "text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl",
+              },
+              "Everything you need to build modern web apps"
             ),
             p(
-              { class: "text-gray-400" },
-              "Optimized for performance and scalability."
+              { class: "mt-4 text-lg text-gray-600 dark:text-gray-400" },
+              "Tee Framework provides all the features you need for production"
             )
           ),
           div(
-            { class: "bg-gray-800 p-6 rounded-md text-center w-72" },
-            h2(
-              { class: "text-xl font-semibold text-white mb-2" },
-              "💡 Intuitive"
+            { class: "grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3" },
+            this.#FeatureCard(
+              "⚡",
+              "Fast Refresh",
+              "See your changes instantly with our lightning-fast refresh system."
             ),
-            p(
-              { class: "text-gray-400" },
-              "Built with simplicity and developer experience in mind."
-            )
-          ),
-          div(
-            { class: "bg-gray-800 p-6 rounded-md text-center w-72" },
-            h2({ class: "text-xl font-semibold text-white mb-2" }, "🌍 Modern"),
-            p(
-              { class: "text-gray-400" },
-              "Designed for the needs of today's web applications."
+            this.#FeatureCard(
+              "🛠️",
+              "Built-in Components",
+              "A comprehensive set of UI components ready for production use."
+            ),
+            this.#FeatureCard(
+              "📦",
+              "Zero Config",
+              "Get started immediately with zero configuration needed."
+            ),
+            this.#FeatureCard(
+              "🔒",
+              "Type Safe",
+              "Built with TypeScript for better development experience."
+            ),
+            this.#FeatureCard(
+              "📱",
+              "Responsive",
+              "Create responsive layouts with built-in Tailwind support."
+            ),
+            this.#FeatureCard(
+              "🚀",
+              "Production Ready",
+              "Optimized for production with automatic performance improvements."
             )
           )
         )
       ),
-      // Showcase Section
-      section(
-        { class: "py-16 bg-gray-800 text-gray-300" },
-        h2(
-          { class: "text-2xl font-bold text-center mb-8 text-white" },
-          "Showcases"
-        ),
-        div(
-          { class: "space-y-8" },
-          div(
-            { class: "text-center" },
-            h2(
-              { class: "text-xl font-semibold text-white mb-2" },
-              "Interactive Counter"
-            ),
-            p({ class: "text-gray-400 mb-4" }, `Count: ${this.#counter.value}`),
-            button(
-              {
-                class:
-                  "bg-gray-700 text-white px-6 py-3 rounded-md hover:bg-gray-600",
-                onclick: () => this.#incrementCounter(),
-              },
-              "Increment Counter"
-            )
-          ),
-          div(
-            { class: "text-center" },
-            h2(
-              { class: "text-xl font-semibold text-white mb-2" },
-              "Animated Tabs"
-            ),
-            div(
-              { class: "space-x-4 mb-4" },
-              button(
-                {
-                  class: `px-4 py-2 rounded-md ${
-                    this.#activeTab.value === 0
-                      ? "bg-gray-700 text-white"
-                      : "bg-gray-600 text-gray-300"
-                  }`,
-                  onclick: () => this.#toggleTab(0),
-                },
-                "Tab 1"
-              ),
-              button(
-                {
-                  class: `px-4 py-2 rounded-md ${
-                    this.#activeTab.value === 1
-                      ? "bg-gray-700 text-white"
-                      : "bg-gray-600 text-gray-300"
-                  }`,
-                  onclick: () => this.#toggleTab(1),
-                },
-                "Tab 2"
-              )
-            ),
-            p(
-              { class: "text-gray-400" },
-              this.#activeTab.value === 0
-                ? "Content for Tab 1"
-                : "Content for Tab 2"
-            )
-          ),
-          div(
-            { class: "text-center" },
-            h2({ class: "text-xl font-semibold text-white mb-2" }, "Accordion"),
-            button(
-              {
-                class:
-                  "bg-gray-700 text-white px-6 py-3 rounded-md hover:bg-gray-600 mb-4",
-                onclick: () => this.#toggleAccordion(),
-              },
-              this.#accordionOpen.value ? "Hide Details" : "Show Details"
-            ),
-            p(
-              { class: "text-gray-400" },
-              this.#accordionOpen.value
-                ? "This is an example of an accordion, where content can be toggled."
-                : null
-            )
-          )
-        )
-      ),
-      // Footer Section
       Footer()
+    );
+  }
+
+  #FeatureCard(emoji: string, title: string, description: string) {
+    return div(
+      {
+        class:
+          "rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6",
+      },
+      div({ class: "mb-4 text-3xl" }, emoji),
+      h3(
+        { class: "mb-2 text-xl font-semibold text-gray-900 dark:text-white" },
+        title
+      ),
+      p({ class: "text-gray-600 dark:text-gray-400" }, description)
     );
   }
 }
