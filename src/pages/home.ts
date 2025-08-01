@@ -71,7 +71,7 @@ class HomePage extends DefaultComponent {
           ),
           a(
             {
-              href: "https://github.com/yourusername/tee-framework",
+              href: "https://github.com/te-js/core",
               class:
                 "rounded-lg bg-gray-100 px-6 py-3 font-semibold text-gray-900 hover:bg-gray-200 transition-colors dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700",
             },
